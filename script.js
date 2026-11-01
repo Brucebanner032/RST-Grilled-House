@@ -1,329 +1,333 @@
-"use strict";
+
+// ==========================
+// RST GRILLED HOUSE
+// script.js
+// ==========================
 
 document.addEventListener("DOMContentLoaded", () => {
-  const themeToggle = document.querySelector("#theme-toggle");
-  const menuToggle = document.querySelector(".menu-toggle");
-  const navLinks = document.querySelector("#primary-navigation");
-  const cartDialog = document.querySelector("#cart-dialog");
-  const cartItems = document.querySelector("#cart-items");
-  const cartEmpty = document.querySelector("#cart-empty");
-  const cartSummary = document.querySelector("#cart-summary");
-  const cartSubtotal = document.querySelector("#cart-subtotal");
-  const cartCount = document.querySelector(".cart-count");
-  const cartOpen = document.querySelector(".cart-open");
-  const cartLive = document.querySelector("#cart-live");
-  const copyStatus = document.querySelector("#copy-status");
-  const orderSummaryText = document.querySelector("#order-summary-text");
-  const reservationForm = document.querySelector("#reservation-form");
-  const reservationDate = document.querySelector("#reservation-date");
-  const reservationStatus = document.querySelector("#reservation-status");
-  const menuSearch = document.querySelector("#menu-search");
-  const menuResultCount = document.querySelector("#menu-result-count");
-  const emptyMenu = document.querySelector("#empty-menu");
-  const menuCards = [...document.querySelectorAll(".food-card")];
-  const cart = new Map();
-  let activeFilter = "all";
 
-  const setTheme = (theme) => {
-    document.body.dataset.theme = theme;
-    const isDark = theme === "dark";
-    themeToggle.setAttribute("aria-pressed", String(isDark));
-    themeToggle.setAttribute("aria-label", `Switch to ${isDark ? "light" : "dark"} theme`);
-    themeToggle.querySelector("span").textContent = isDark ? "☼" : "◐";
-  };
+  // ==========================
+  // LOADER
+  // ==========================
+  const loader = document.getElementById("loader");
 
-  try {
-    const savedTheme = localStorage.getItem("theme");
-    setTheme(savedTheme === "dark" ? "dark" : "light");
-  } catch (error) {
-    console.warn("The saved theme could not be read.", error);
-    setTheme("light");
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      if (loader) {
+        loader.style.opacity = "0";
+        loader.style.visibility = "hidden";
+        loader.style.transition = "0.5s ease";
+      }
+    }, 800);
+  });
+
+  // ==========================
+  // DARK MODE
+  // ==========================
+  const themeBtn = document.getElementById("theme-toggle");
+
+  if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark-mode");
+    if (themeBtn) themeBtn.textContent = "☀️";
   }
 
-  themeToggle.addEventListener("click", () => {
-    const nextTheme = document.body.dataset.theme === "dark" ? "light" : "dark";
-    setTheme(nextTheme);
+  if (themeBtn) {
+    themeBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
 
-    try {
-      localStorage.setItem("theme", nextTheme);
-    } catch (error) {
-      console.warn("The theme preference could not be saved.", error);
-    }
-  });
+      const darkMode =
+        document.body.classList.contains("dark-mode");
 
-  const closeMobileMenu = () => {
-    menuToggle.setAttribute("aria-expanded", "false");
-    menuToggle.setAttribute("aria-label", "Open navigation menu");
-    navLinks.classList.remove("is-open");
-  };
+      localStorage.setItem(
+        "theme",
+        darkMode ? "dark" : "light"
+      );
 
-  menuToggle.addEventListener("click", () => {
-    const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
-    menuToggle.setAttribute("aria-expanded", String(!isOpen));
-    menuToggle.setAttribute("aria-label", isOpen ? "Open navigation menu" : "Close navigation menu");
-    navLinks.classList.toggle("is-open", !isOpen);
-  });
+      themeBtn.textContent = darkMode ? "☀️" : "🌙";
+    });
+  }
 
-  navLinks.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", closeMobileMenu);
-  });
+  // ==========================
+  // MOBILE MENU
+  // ==========================
+  const hamburger =
+    document.querySelector(".hamburger");
 
-  window.addEventListener("resize", () => {
-    if (window.innerWidth > 850) closeMobileMenu();
-  });
+  const navLinks =
+    document.querySelector(".nav-links");
 
-  const updateMenu = () => {
-    const query = menuSearch.value.trim().toLocaleLowerCase();
-    let visibleCount = 0;
+  if (hamburger && navLinks) {
 
-    menuCards.forEach((card) => {
-      const matchesCategory = activeFilter === "all" || card.dataset.category === activeFilter;
-      const matchesSearch = card.textContent.toLocaleLowerCase().includes(query);
-      const isVisible = matchesCategory && matchesSearch;
-      card.hidden = !isVisible;
-      if (isVisible) visibleCount += 1;
+    hamburger.addEventListener("click", () => {
+
+      if (
+        navLinks.style.display === "flex"
+      ) {
+        navLinks.style.display = "none";
+      } else {
+        navLinks.style.display = "flex";
+        navLinks.style.flexDirection = "column";
+        navLinks.style.position = "absolute";
+        navLinks.style.top = "80px";
+        navLinks.style.right = "20px";
+        navLinks.style.padding = "20px";
+        navLinks.style.borderRadius = "12px";
+        navLinks.style.background =
+          "rgba(0,0,0,0.95)";
+        navLinks.style.gap = "15px";
+      }
+
     });
 
-    emptyMenu.hidden = visibleCount > 0;
-    menuResultCount.textContent = `${visibleCount} ${visibleCount === 1 ? "dish" : "dishes"}`;
-  };
+  }
 
-  document.querySelectorAll(".filter-button").forEach((button) => {
-    button.addEventListener("click", () => {
-      activeFilter = button.dataset.filter;
-      document.querySelectorAll(".filter-button").forEach((filterButton) => {
-        const isActive = filterButton === button;
-        filterButton.classList.toggle("is-active", isActive);
-        filterButton.setAttribute("aria-pressed", String(isActive));
+  // ==========================
+  // CLOSE MENU WHEN LINK CLICKED
+  // ==========================
+  document
+    .querySelectorAll(".nav-links a")
+    .forEach(link => {
+
+      link.addEventListener("click", () => {
+
+        if (
+          window.innerWidth <= 768 &&
+          navLinks
+        ) {
+          navLinks.style.display = "none";
+        }
+
       });
-      updateMenu();
-    });
-  });
 
-  menuSearch.addEventListener("input", updateMenu);
-  updateMenu();
-
-  const formatPrice = (amount) => `GH₵ ${amount.toLocaleString("en-GH")}`;
-
-  const getProduct = (id) => {
-    const card = menuCards.find((item) => item.dataset.id === id);
-    if (!card) return null;
-
-    const price = Number(card.dataset.price);
-    if (!Number.isSafeInteger(price) || price < 0) return null;
-
-    return {
-      id,
-      name: card.querySelector("h3").textContent.trim(),
-      price
-    };
-  };
-
-  const makeQuantityButton = (label, action, id, text) => {
-    const button = document.createElement("button");
-    button.className = "quantity-button";
-    button.type = "button";
-    button.dataset.cartAction = action;
-    button.dataset.id = id;
-    button.setAttribute("aria-label", label);
-    button.textContent = text;
-    return button;
-  };
-
-  const renderCart = () => {
-    cartItems.replaceChildren();
-    copyStatus.textContent = "";
-    orderSummaryText.value = "";
-    orderSummaryText.hidden = true;
-    let itemCount = 0;
-    let total = 0;
-
-    cart.forEach((quantity, id) => {
-      const product = getProduct(id);
-      if (!product || !Number.isSafeInteger(quantity) || quantity < 1) {
-        cart.delete(id);
-        return;
-      }
-
-      itemCount += quantity;
-      total += product.price * quantity;
-
-      const row = document.createElement("article");
-      row.className = "cart-line";
-
-      const name = document.createElement("h3");
-      name.className = "cart-line-name";
-      name.textContent = product.name;
-
-      const linePrice = document.createElement("span");
-      linePrice.className = "cart-line-price";
-      linePrice.textContent = formatPrice(product.price * quantity);
-
-      const controls = document.createElement("div");
-      controls.className = "cart-line-controls";
-      controls.append(
-        makeQuantityButton(`Remove one ${product.name}`, "decrease", id, "−")
-      );
-
-      const quantityLabel = document.createElement("span");
-      quantityLabel.textContent = String(quantity);
-      quantityLabel.setAttribute("aria-label", "Quantity");
-      controls.append(quantityLabel);
-      controls.append(
-        makeQuantityButton(`Add one ${product.name}`, "increase", id, "+")
-      );
-
-      const removeButton = document.createElement("button");
-      removeButton.className = "cart-remove";
-      removeButton.type = "button";
-      removeButton.dataset.cartAction = "remove";
-      removeButton.dataset.id = id;
-      removeButton.textContent = "Remove";
-      removeButton.setAttribute("aria-label", `Remove ${product.name} from your bag`);
-
-      row.append(name, linePrice, controls, removeButton);
-      cartItems.append(row);
     });
 
-    cartCount.textContent = String(itemCount);
-    cartOpen.setAttribute("aria-label", `Open your cart, ${itemCount} ${itemCount === 1 ? "item" : "items"}`);
-    cartSubtotal.textContent = formatPrice(total);
-    cartEmpty.hidden = itemCount > 0;
-    cartSummary.hidden = itemCount === 0;
-  };
+  // ==========================
+  // SMOOTH SCROLL
+  // ==========================
+  document
+    .querySelectorAll('a[href^="#"]')
+    .forEach(anchor => {
 
-  document.querySelectorAll(".add-to-cart").forEach((button) => {
-    button.addEventListener("click", () => {
-      const card = button.closest(".food-card");
-      const id = card.dataset.id;
-      const product = getProduct(id);
-      const quantity = cart.get(id) || 0;
+      anchor.addEventListener("click", function (e) {
 
-      if (!product || quantity >= 99) {
-        cartLive.textContent = "The maximum quantity for one dish is 99.";
-        return;
-      }
+        e.preventDefault();
 
-      cart.set(id, quantity + 1);
-      renderCart();
-      cartLive.textContent = `${product.name} added to your bag. ${cartCount.textContent} ${Number(cartCount.textContent) === 1 ? "item" : "items"} in total.`;
-      button.setAttribute("aria-label", `${product.name} added to bag. Add another`);
-      window.setTimeout(() => {
-        button.setAttribute("aria-label", `Add ${product.name} to bag`);
-      }, 1200);
+        const target =
+          document.querySelector(
+            this.getAttribute("href")
+          );
+
+        if (target) {
+
+          window.scrollTo({
+            top:
+              target.offsetTop - 70,
+            behavior: "smooth"
+          });
+
+        }
+
+      });
+
     });
-  });
 
-  cartItems.addEventListener("click", (event) => {
-    const button = event.target.closest("button[data-cart-action]");
-    if (!button) return;
+  // ==========================
+  // NAVBAR BACKGROUND CHANGE
+  // ==========================
+  const navbar =
+    document.querySelector(".navbar");
 
-    const { id, cartAction } = button.dataset;
-    const quantity = cart.get(id);
-    if (!quantity) return;
+  window.addEventListener("scroll", () => {
 
-    if (cartAction === "remove" || (cartAction === "decrease" && quantity === 1)) {
-      cart.delete(id);
-    } else if (cartAction === "decrease") {
-      cart.set(id, quantity - 1);
-    } else if (cartAction === "increase" && quantity < 99) {
-      cart.set(id, quantity + 1);
+    if (!navbar) return;
+
+    if (window.scrollY > 100) {
+      navbar.style.background =
+        "rgba(0,0,0,0.95)";
+      navbar.style.boxShadow =
+        "0 5px 20px rgba(0,0,0,0.3)";
+    } else {
+      navbar.style.background =
+        "rgba(0,0,0,0.6)";
+      navbar.style.boxShadow = "none";
     }
 
-    renderCart();
   });
 
-  cartOpen.addEventListener("click", () => cartDialog.showModal());
-  document.querySelector(".dialog-close").addEventListener("click", () => cartDialog.close());
-  document.querySelector(".cart-continue").addEventListener("click", () => {
-    cartDialog.close();
-    document.querySelector("#menu").scrollIntoView({ behavior: "smooth" });
-  });
+  // ==========================
+  // FADE-IN ANIMATIONS
+  // ==========================
+  const animatedItems =
+    document.querySelectorAll(
+      ".food-card, .feature-card, .stat-card, .testimonial-card"
+    );
 
-  cartDialog.addEventListener("click", (event) => {
-    if (event.target === cartDialog) cartDialog.close();
-  });
+  const observer =
+    new IntersectionObserver(
+      entries => {
 
-  document.querySelector("#copy-order").addEventListener("click", async () => {
-    const orderLines = [...cart.entries()]
-      .map(([id, quantity]) => {
-        const product = getProduct(id);
-        return product ? `${quantity} x ${product.name} — ${formatPrice(product.price * quantity)}` : null;
-      })
-      .filter(Boolean);
+        entries.forEach(entry => {
 
-    if (orderLines.length === 0) return;
+          if (entry.isIntersecting) {
 
-    const total = [...cart.entries()].reduce((sum, [id, quantity]) => {
-      const product = getProduct(id);
-      return sum + (product ? product.price * quantity : 0);
-    }, 0);
-    const orderText = `RST Grilled House order review\n${orderLines.join("\n")}\nSubtotal: ${formatPrice(total)}\n\nReview only — no order has been sent or paid.`;
+            entry.target.style.opacity = "1";
+            entry.target.style.transform =
+              "translateY(0)";
 
-    try {
-      if (!navigator.clipboard?.writeText) {
-        throw new Error("Clipboard access is unavailable in this browser.");
-      }
-      await navigator.clipboard.writeText(orderText);
-      copyStatus.textContent = "Order review copied. It has not been sent or placed.";
-      orderSummaryText.hidden = true;
-    } catch (error) {
-      console.error("The order summary could not be copied automatically.", error);
-      orderSummaryText.value = orderText;
-      orderSummaryText.hidden = false;
-      orderSummaryText.focus();
-      orderSummaryText.select();
-      copyStatus.textContent = "Automatic copy is unavailable. The review is selected for you to copy manually.";
-    }
-  });
-
-  const localToday = new Date();
-  const year = localToday.getFullYear();
-  const month = String(localToday.getMonth() + 1).padStart(2, "0");
-  const day = String(localToday.getDate()).padStart(2, "0");
-  reservationDate.min = `${year}-${month}-${day}`;
-
-  reservationForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    reservationStatus.textContent = "Preview only: nothing was sent, and no table has been reserved. Please contact the restaurant directly to confirm a visit.";
-  });
-
-  const imageDialog = document.querySelector("#image-dialog");
-  const previewImage = document.querySelector("#image-dialog-content");
-
-  document.querySelectorAll(".gallery-image").forEach((button) => {
-    button.addEventListener("click", () => {
-      const image = button.querySelector("img");
-      previewImage.src = image.currentSrc || image.src;
-      previewImage.alt = image.alt;
-      imageDialog.showModal();
-    });
-  });
-
-  document.querySelector(".image-dialog-close").addEventListener("click", () => imageDialog.close());
-  imageDialog.addEventListener("click", (event) => {
-    if (event.target === imageDialog) imageDialog.close();
-  });
-
-  document.querySelector("#current-year").textContent = String(new Date().getFullYear());
-
-  if ("IntersectionObserver" in window) {
-    const sections = document.querySelectorAll("main section[id]");
-    const sectionObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        document.querySelectorAll(".nav-links a").forEach((link) => {
-          if (link.getAttribute("href") === `#${entry.target.id}`) {
-            link.setAttribute("aria-current", "location");
-          } else {
-            link.removeAttribute("aria-current");
           }
+
         });
-      });
-    }, {
-      rootMargin: "-30% 0px -60% 0px"
+
+      },
+      {
+        threshold: 0.15
+      }
+    );
+
+  animatedItems.forEach(item => {
+
+    item.style.opacity = "0";
+    item.style.transform =
+      "translateY(40px)";
+    item.style.transition =
+      "all 0.8s ease";
+
+    observer.observe(item);
+
+  });
+
+  // ==========================
+  // GALLERY LIGHTBOX
+  // ==========================
+  const galleryImages =
+    document.querySelectorAll(
+      ".gallery-grid img"
+    );
+
+  galleryImages.forEach(img => {
+
+    img.addEventListener("click", () => {
+
+      const overlay =
+        document.createElement("div");
+
+      overlay.style.position = "fixed";
+      overlay.style.top = "0";
+      overlay.style.left = "0";
+      overlay.style.width = "100%";
+      overlay.style.height = "100%";
+      overlay.style.background =
+        "rgba(0,0,0,0.95)";
+      overlay.style.display = "flex";
+      overlay.style.alignItems = "center";
+      overlay.style.justifyContent =
+        "center";
+      overlay.style.zIndex = "9999";
+
+      const image =
+        document.createElement("img");
+
+      image.src = img.src;
+      image.style.maxWidth = "90%";
+      image.style.maxHeight = "90%";
+      image.style.borderRadius = "12px";
+
+      overlay.appendChild(image);
+
+      document.body.appendChild(
+        overlay
+      );
+
+      overlay.addEventListener(
+        "click",
+        () => {
+          overlay.remove();
+        }
+      );
+
     });
 
-    sections.forEach((section) => sectionObserver.observe(section));
+  });
+
+  // ==========================
+  // RESERVATION FORM
+  // ==========================
+  const form =
+    document.querySelector(
+      ".reservation-form"
+    );
+
+  if (form) {
+
+    form.addEventListener(
+      "submit",
+      e => {
+
+        e.preventDefault();
+
+        alert(
+          "Thank you! Your reservation request has been received. We will contact you shortly."
+        );
+
+        form.reset();
+
+      }
+    );
+
   }
+
+  // ==========================
+  // ACTIVE NAV LINK
+  // ==========================
+  const sections =
+    document.querySelectorAll(
+      "section"
+    );
+
+  const navItems =
+    document.querySelectorAll(
+      ".nav-links a"
+    );
+
+  window.addEventListener(
+    "scroll",
+    () => {
+
+      let current = "";
+
+      sections.forEach(section => {
+
+        const sectionTop =
+          section.offsetTop - 120;
+
+        if (
+          pageYOffset >= sectionTop
+        ) {
+          current = section.getAttribute(
+            "id"
+          );
+        }
+
+      });
+
+      navItems.forEach(link => {
+
+        link.classList.remove(
+          "active"
+        );
+
+        if (
+          link.getAttribute("href") ===
+          `#${current}`
+        ) {
+          link.classList.add(
+            "active"
+          );
+        }
+
+      });
+
+    }
+  );
+
 });
