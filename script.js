@@ -1,333 +1,213 @@
+"use strict";
 
-// ==========================
-// RST GRILLED HOUSE
-// script.js
-// ==========================
+const RESTAURANT_EMAIL = "";
+const SOCIAL_LINKS = [];
 
 document.addEventListener("DOMContentLoaded", () => {
+  const contactPhone = (document.body.getAttribute("data-contact-phone") || "").trim();
+  const whatsappNumber = contactPhone.replace(/\D/g, "");
+  const whatsappUrl = whatsappNumber ? `https://wa.me/${whatsappNumber}` : "";
+  const whatsappLinks = document.querySelectorAll(".whatsapp-float, .whatsapp-contact");
+  const phoneLink = document.querySelector(".contact-phone");
+  const reservationForm = document.getElementById("reservation-form");
+  const reservationLink = document.getElementById("reservation-whatsapp");
+  const feedback = document.getElementById("reservation-feedback");
+  const menuToggle = document.querySelector(".menu-toggle");
+  const navPanel = document.getElementById("site-navigation");
 
-  // ==========================
-  // LOADER
-  // ==========================
-  const loader = document.getElementById("loader");
-
-  window.addEventListener("load", () => {
-    setTimeout(() => {
-      if (loader) {
-        loader.style.opacity = "0";
-        loader.style.visibility = "hidden";
-        loader.style.transition = "0.5s ease";
-      }
-    }, 800);
-  });
-
-  // ==========================
-  // DARK MODE
-  // ==========================
-  const themeBtn = document.getElementById("theme-toggle");
-
-  if (localStorage.getItem("theme") === "dark") {
-    document.body.classList.add("dark-mode");
-    if (themeBtn) themeBtn.textContent = "☀️";
+  if (!/^\d{8,15}$/.test(whatsappNumber)) {
+    console.error("Configure a valid contact phone in the page's data-contact-phone attribute, including the country code.");
   }
 
-  if (themeBtn) {
-    themeBtn.addEventListener("click", () => {
-      document.body.classList.toggle("dark-mode");
-
-      const darkMode =
-        document.body.classList.contains("dark-mode");
-
-      localStorage.setItem(
-        "theme",
-        darkMode ? "dark" : "light"
-      );
-
-      themeBtn.textContent = darkMode ? "☀️" : "🌙";
+  if (whatsappUrl && /^\d{8,15}$/.test(whatsappNumber)) {
+    whatsappLinks.forEach(link => {
+      link.href = whatsappUrl;
     });
-  }
-
-  // ==========================
-  // MOBILE MENU
-  // ==========================
-  const hamburger =
-    document.querySelector(".hamburger");
-
-  const navLinks =
-    document.querySelector(".nav-links");
-
-  if (hamburger && navLinks) {
-
-    hamburger.addEventListener("click", () => {
-
-      if (
-        navLinks.style.display === "flex"
-      ) {
-        navLinks.style.display = "none";
-      } else {
-        navLinks.style.display = "flex";
-        navLinks.style.flexDirection = "column";
-        navLinks.style.position = "absolute";
-        navLinks.style.top = "80px";
-        navLinks.style.right = "20px";
-        navLinks.style.padding = "20px";
-        navLinks.style.borderRadius = "12px";
-        navLinks.style.background =
-          "rgba(0,0,0,0.95)";
-        navLinks.style.gap = "15px";
-      }
-
-    });
-
-  }
-
-  // ==========================
-  // CLOSE MENU WHEN LINK CLICKED
-  // ==========================
-  document
-    .querySelectorAll(".nav-links a")
-    .forEach(link => {
-
-      link.addEventListener("click", () => {
-
-        if (
-          window.innerWidth <= 768 &&
-          navLinks
-        ) {
-          navLinks.style.display = "none";
-        }
-
-      });
-
-    });
-
-  // ==========================
-  // SMOOTH SCROLL
-  // ==========================
-  document
-    .querySelectorAll('a[href^="#"]')
-    .forEach(anchor => {
-
-      anchor.addEventListener("click", function (e) {
-
-        e.preventDefault();
-
-        const target =
-          document.querySelector(
-            this.getAttribute("href")
-          );
-
-        if (target) {
-
-          window.scrollTo({
-            top:
-              target.offsetTop - 70,
-            behavior: "smooth"
-          });
-
-        }
-
-      });
-
-    });
-
-  // ==========================
-  // NAVBAR BACKGROUND CHANGE
-  // ==========================
-  const navbar =
-    document.querySelector(".navbar");
-
-  window.addEventListener("scroll", () => {
-
-    if (!navbar) return;
-
-    if (window.scrollY > 100) {
-      navbar.style.background =
-        "rgba(0,0,0,0.95)";
-      navbar.style.boxShadow =
-        "0 5px 20px rgba(0,0,0,0.3)";
-    } else {
-      navbar.style.background =
-        "rgba(0,0,0,0.6)";
-      navbar.style.boxShadow = "none";
+    if (phoneLink) {
+      phoneLink.href = `tel:+${whatsappNumber}`;
+      phoneLink.textContent = contactPhone;
     }
-
-  });
-
-  // ==========================
-  // FADE-IN ANIMATIONS
-  // ==========================
-  const animatedItems =
-    document.querySelectorAll(
-      ".food-card, .feature-card, .stat-card, .testimonial-card"
-    );
-
-  const observer =
-    new IntersectionObserver(
-      entries => {
-
-        entries.forEach(entry => {
-
-          if (entry.isIntersecting) {
-
-            entry.target.style.opacity = "1";
-            entry.target.style.transform =
-              "translateY(0)";
-
-          }
-
-        });
-
-      },
-      {
-        threshold: 0.15
-      }
-    );
-
-  animatedItems.forEach(item => {
-
-    item.style.opacity = "0";
-    item.style.transform =
-      "translateY(40px)";
-    item.style.transition =
-      "all 0.8s ease";
-
-    observer.observe(item);
-
-  });
-
-  // ==========================
-  // GALLERY LIGHTBOX
-  // ==========================
-  const galleryImages =
-    document.querySelectorAll(
-      ".gallery-grid img"
-    );
-
-  galleryImages.forEach(img => {
-
-    img.addEventListener("click", () => {
-
-      const overlay =
-        document.createElement("div");
-
-      overlay.style.position = "fixed";
-      overlay.style.top = "0";
-      overlay.style.left = "0";
-      overlay.style.width = "100%";
-      overlay.style.height = "100%";
-      overlay.style.background =
-        "rgba(0,0,0,0.95)";
-      overlay.style.display = "flex";
-      overlay.style.alignItems = "center";
-      overlay.style.justifyContent =
-        "center";
-      overlay.style.zIndex = "9999";
-
-      const image =
-        document.createElement("img");
-
-      image.src = img.src;
-      image.style.maxWidth = "90%";
-      image.style.maxHeight = "90%";
-      image.style.borderRadius = "12px";
-
-      overlay.appendChild(image);
-
-      document.body.appendChild(
-        overlay
-      );
-
-      overlay.addEventListener(
-        "click",
-        () => {
-          overlay.remove();
-        }
-      );
-
+  } else {
+    whatsappLinks.forEach(link => {
+      link.hidden = true;
     });
-
-  });
-
-  // ==========================
-  // RESERVATION FORM
-  // ==========================
-  const form =
-    document.querySelector(
-      ".reservation-form"
-    );
-
-  if (form) {
-
-    form.addEventListener(
-      "submit",
-      e => {
-
-        e.preventDefault();
-
-        alert(
-          "Thank you! Your reservation request has been received. We will contact you shortly."
-        );
-
-        form.reset();
-
-      }
-    );
-
+    if (phoneLink) {
+      const phoneDetail = phoneLink.closest(".contact-detail");
+      if (phoneDetail) phoneDetail.hidden = true;
+    }
   }
 
-  // ==========================
-  // ACTIVE NAV LINK
-  // ==========================
-  const sections =
-    document.querySelectorAll(
-      "section"
-    );
+  if (menuToggle && navPanel) {
+    const closeMenu = () => {
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Open navigation");
+      navPanel.classList.remove("is-open");
+    };
 
-  const navItems =
-    document.querySelectorAll(
-      ".nav-links a"
-    );
+    menuToggle.addEventListener("click", () => {
+      const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
+      menuToggle.setAttribute("aria-expanded", String(!isExpanded));
+      menuToggle.setAttribute("aria-label", isExpanded ? "Open navigation" : "Close navigation");
+      navPanel.classList.toggle("is-open", !isExpanded);
+    });
 
-  window.addEventListener(
-    "scroll",
-    () => {
+    navPanel.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener("click", closeMenu);
+    });
 
-      let current = "";
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") closeMenu();
+    });
 
-      sections.forEach(section => {
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 900) closeMenu();
+    });
+  }
 
-        const sectionTop =
-          section.offsetTop - 120;
+  const header = document.querySelector(".site-header");
+  const updateHeader = () => {
+    if (header) header.classList.toggle("is-scrolled", window.scrollY > 24);
+  };
+  updateHeader();
+  window.addEventListener("scroll", updateHeader, { passive: true });
 
-        if (
-          pageYOffset >= sectionTop
-        ) {
-          current = section.getAttribute(
-            "id"
-          );
-        }
-
+  const filterButtons = document.querySelectorAll(".filter-button");
+  const menuItems = document.querySelectorAll(".menu-item");
+  filterButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      const selectedCategory = button.dataset.filter;
+      filterButtons.forEach(filter => {
+        const isSelected = filter === button;
+        filter.classList.toggle("is-active", isSelected);
+        filter.setAttribute("aria-pressed", String(isSelected));
       });
-
-      navItems.forEach(link => {
-
-        link.classList.remove(
-          "active"
-        );
-
-        if (
-          link.getAttribute("href") ===
-          `#${current}`
-        ) {
-          link.classList.add(
-            "active"
-          );
-        }
-
+      menuItems.forEach(item => {
+        item.hidden = selectedCategory !== "all" && item.dataset.category !== selectedCategory;
       });
+    });
+  });
 
-    }
-  );
+  const lightbox = document.getElementById("gallery-lightbox");
+  const lightboxImage = document.getElementById("lightbox-image");
+  const lightboxCaption = document.getElementById("lightbox-caption");
+  const lightboxClose = document.querySelector(".lightbox-close");
+  document.querySelectorAll(".gallery-item").forEach(item => {
+    item.addEventListener("click", () => {
+      if (!lightbox || !lightboxImage || !lightboxCaption) return;
+      lightboxImage.src = item.dataset.full;
+      lightboxImage.alt = item.querySelector("img").alt;
+      lightboxCaption.textContent = item.dataset.caption;
+      lightbox.showModal();
+      lightboxClose.focus();
+    });
+  });
+  if (lightbox && lightboxClose) {
+    lightboxClose.addEventListener("click", () => lightbox.close());
+    lightbox.addEventListener("click", event => {
+      if (event.target === lightbox) lightbox.close();
+    });
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && lightbox.open) lightbox.close();
+    });
+  }
 
+  const dateInput = document.getElementById("reservation-date");
+  const timeInput = document.getElementById("reservation-time");
+  if (dateInput && timeInput) {
+    const today = new Date();
+    const localDate = [
+      today.getFullYear(),
+      String(today.getMonth() + 1).padStart(2, "0"),
+      String(today.getDate()).padStart(2, "0")
+    ].join("-");
+    dateInput.min = localDate;
+    const clearDateTimeError = () => timeInput.setCustomValidity("");
+    dateInput.addEventListener("input", clearDateTimeError);
+    dateInput.addEventListener("change", clearDateTimeError);
+    timeInput.addEventListener("input", clearDateTimeError);
+    timeInput.addEventListener("change", clearDateTimeError);
+  }
+
+  if (reservationForm && reservationLink && feedback) {
+    reservationForm.addEventListener("submit", event => {
+      event.preventDefault();
+      reservationLink.hidden = true;
+      feedback.textContent = "";
+
+      if (!whatsappUrl || !/^\d{8,15}$/.test(whatsappNumber)) {
+        feedback.textContent = "WhatsApp booking is not available right now. Please contact the restaurant directly to enquire.";
+        feedback.focus();
+        return;
+      }
+
+      const formData = new FormData(reservationForm);
+      const date = String(formData.get("date"));
+      const time = String(formData.get("time"));
+      const requestedDateTime = new Date(`${date}T${time}`);
+      if (Number.isNaN(requestedDateTime.getTime()) || requestedDateTime <= new Date()) {
+        timeInput.setCustomValidity("Choose a date and time in the future.");
+        timeInput.reportValidity();
+        return;
+      }
+
+      const message = [
+        "Hello RST Grilled House, I would like to request a table.",
+        `Name: ${formData.get("name")}`,
+        `Phone: ${formData.get("phone")}`,
+        `Date: ${date}`,
+        `Time: ${time}`,
+        `Guests: ${formData.get("guests")}`,
+        formData.get("notes") ? `Notes: ${formData.get("notes")}` : ""
+      ].filter(Boolean).join("\n");
+
+      reservationLink.href = `${whatsappUrl}?text=${encodeURIComponent(message)}`;
+      reservationLink.hidden = false;
+      feedback.textContent = "Your request is ready. Continue to WhatsApp and send the message to contact our team. This is not a confirmed reservation; your table is booked only after we reply.";
+      reservationLink.focus();
+    });
+  }
+
+  const emailContact = document.getElementById("email-contact");
+  const emailLink = document.querySelector(".contact-email");
+  if (RESTAURANT_EMAIL && emailContact && emailLink) {
+    emailLink.href = `mailto:${RESTAURANT_EMAIL}`;
+    emailLink.textContent = RESTAURANT_EMAIL;
+    emailContact.hidden = false;
+  }
+
+  const socialNav = document.getElementById("footer-socials");
+  if (socialNav && SOCIAL_LINKS.length) {
+    SOCIAL_LINKS.forEach(profile => {
+      const url = new URL(profile.url);
+      if (url.protocol !== "https:" && url.protocol !== "http:") {
+        console.error(`Unsupported social profile URL: ${profile.url}`);
+        return;
+      }
+      const link = document.createElement("a");
+      link.href = url.href;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = profile.label;
+      socialNav.append(link);
+    });
+    socialNav.hidden = socialNav.childElementCount === 0;
+  }
+
+  const currentYear = document.getElementById("current-year");
+  if (currentYear) currentYear.textContent = String(new Date().getFullYear());
+
+  const revealItems = document.querySelectorAll("[data-reveal]");
+  if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealItems.forEach(item => revealObserver.observe(item));
+  } else {
+    revealItems.forEach(item => item.classList.add("is-visible"));
+  }
 });

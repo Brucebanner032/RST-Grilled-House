@@ -1,405 +1,253 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="RST Grilled House Restaurant - Premium Rooftop Dining Experience in Accra">
-    <meta name="keywords" content="Restaurant, Grilled Food, Rooftop Dining, Accra, Ghana">
-    <title>RST Grilled House Restaurant | Premium Rooftop Dining</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="style.css">
-
-    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Discover flame-grilled favourites, Ghanaian flavours and rooftop dining at RST Grilled House in Accra.">
+  <meta name="theme-color" content="#171715">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="RST Grilled House | Rooftop dining in Accra">
+  <meta property="og:description" content="Flame-grilled favourites, Ghanaian flavours and rooftop dining in Accra.">
+  <meta property="og:image" content="images/platter.jpg">
+  <title>RST Grilled House | Rooftop dining in Accra</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" as="image" href="images/platter.jpg">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
-<body>
+<body data-contact-phone="+233 54 637 1072">
+  <a class="skip-link" href="#main">Skip to content</a>
 
-    <!-- LOADER -->
-    <div id="loader">
-        <div class="spinner"></div>
-    </div>
+  <header class="site-header">
+    <nav class="navbar container" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="RST Grilled House home">
+        <span class="brand-mark" aria-hidden="true">R</span>
+        <span class="brand-name">RST <span>Grilled House</span></span>
+      </a>
 
-    <!-- HEADER -->
-    <header>
-        <nav class="navbar">
-            <div class="logo">
-                <h2>RST Grilled House</h2>
-            </div>
+      <button class="menu-toggle" type="button" aria-controls="site-navigation" aria-expanded="false" aria-label="Open navigation">
+        <span></span><span></span>
+      </button>
 
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#menu">Menu</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#gallery">Gallery</a></li>
-                <li><a href="#reservation">Reservations</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+      <div class="nav-panel" id="site-navigation">
+        <ul class="nav-links">
+          <li><a href="#about">Our story</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#experience">The experience</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#contact">Find us</a></li>
+        </ul>
+        <a class="button button-small nav-reserve" href="#reservation">Reserve a table <span aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+  </header>
 
-            <div class="nav-actions">
-                <button id="theme-toggle">🌙</button>
-                <button class="reserve-btn">Reserve</button>
-            </div>
-
-            <div class="hamburger">
-                ☰
-            </div>
-        </nav>
-    </header>
-
-    <!-- HERO SECTION -->
-    <section id="home" class="hero">
-        <div class="hero-overlay"></div>
-
-        <div class="hero-content">
-            <span class="tagline">
-                Where Every Grill Tells a Story
-            </span>
-
-            <h1>
-                Experience Exceptional<br>
-                Grilled Cuisine in Accra
-            </h1>
-
-            <p>
-                Enjoy expertly crafted meals, stunning rooftop views,
-                and unforgettable dining experiences.
-            </p>
-
-            <div class="hero-buttons">
-                <a href="#menu" class="btn-primary">View Menu</a>
-                <a href="#reservation" class="btn-secondary">Reserve a Table</a>
-            </div>
+  <main id="main">
+    <section class="hero" id="home" aria-labelledby="hero-title">
+      <img class="hero-image" src="images/platter.jpg" alt="A generous grilled platter served at RST Grilled House" fetchpriority="high">
+      <div class="hero-shade"></div>
+      <div class="hero-content container">
+        <p class="eyebrow"><span class="eyebrow-rule"></span> Rooftop dining · Accra</p>
+        <h1 id="hero-title">A little fire.<br><em>A lot of flavour.</em></h1>
+        <p class="hero-copy">Good food, open skies and a table worth gathering around. Find your next favourite at RST Grilled House.</p>
+        <div class="hero-actions">
+          <a class="button" href="#menu">Explore the menu <span aria-hidden="true">↗</span></a>
+          <a class="text-link light-link" href="#reservation">Plan your visit <span aria-hidden="true">→</span></a>
         </div>
+        <p class="hero-note"><span class="status-dot" aria-hidden="true"></span> Made for long lunches and late evenings</p>
+      </div>
+      <a class="hero-scroll" href="#about" aria-label="Scroll to our story"><span></span> Scroll to discover</a>
+      <div class="hero-index" aria-hidden="true">01 <span></span> 04</div>
     </section>
 
-    <!-- STATS -->
-    <section class="stats">
-        <div class="stat-card">
-            <h2>500+</h2>
-            <p>Happy Customers</p>
+    <section class="story section-pad" id="about" aria-labelledby="story-title">
+      <div class="container story-grid">
+        <div class="story-photo-wrap" data-reveal>
+          <img class="story-photo" src="images/about.jpg" alt="A welcoming view inside RST Grilled House" loading="lazy" decoding="async">
+          <div class="photo-caption"><span class="caption-line"></span><span>Made to be shared</span></div>
+          <span class="photo-index" aria-hidden="true">RST / 01</span>
         </div>
-
-        <div class="stat-card">
-            <h2>100+</h2>
-            <p>Signature Dishes</p>
+        <div class="story-copy" data-reveal>
+          <p class="eyebrow"><span class="eyebrow-rule"></span> A table above the everyday</p>
+          <h2 class="section-heading" id="story-title">The best moments<br>happen <em>around food.</em></h2>
+          <p>At RST Grilled House, expertly prepared grills and chef-inspired creations meet the ease of a rooftop setting. Come for a casual lunch, make an occasion of it, or simply stay a little longer.</p>
+          <p>Settle in, take in the Accra skyline and let the kitchen take care of the rest.</p>
+          <a class="text-link" href="#experience">Get to know RST <span aria-hidden="true">→</span></a>
+          <div class="story-signoff"><span class="signoff-rule"></span><span>RST Grilled House <small>Accra, Ghana</small></span></div>
         </div>
-
-        <div class="stat-card">
-            <h2>5★</h2>
-            <p>Customer Rating</p>
-        </div>
-
-        <div class="stat-card">
-            <h2>1</h2>
-            <p>Premium Rooftop Experience</p>
-        </div>
+      </div>
     </section>
 
-    <!-- ABOUT -->
-    <section id="about" class="about">
-        <div class="container">
-
-            <div class="section-title">
-                <h2>Welcome to RST Grilled House</h2>
-                <p>
-                    A unique rooftop dining experience in Accra.
-                </p>
-            </div>
-
-            <div class="about-content">
-
-                <div class="about-image">
-                    <img src="images/about.jpg" alt="RST Grilled House">
-                </div>
-
-                <div class="about-text">
-                    <h3>Premium Dining Experience</h3>
-
-                    <p>
-                        RST Grilled House Restaurant offers expertly prepared
-                        grilled dishes and chef-inspired creations served in a
-                        beautiful rooftop setting.
-                    </p>
-
-                    <p>
-                        Whether you're enjoying a casual lunch or celebrating
-                        a special occasion, our atmosphere and menu are designed
-                        to leave a lasting impression.
-                    </p>
-
-                    <div class="rating">
-                        ★★★★★ Rated 5.0 by Customers
-                    </div>
-                </div>
-
-            </div>
-
+    <section class="featured section-pad" aria-labelledby="featured-title">
+      <div class="container">
+        <div class="section-heading-row" data-reveal>
+          <div>
+            <p class="eyebrow"><span class="eyebrow-rule"></span> From our kitchen</p>
+            <h2 class="section-heading" id="featured-title">Favourites from<br><em>the fire.</em></h2>
+          </div>
+          <a class="text-link" href="#menu">See the full menu <span aria-hidden="true">→</span></a>
         </div>
+
+        <div class="featured-grid">
+          <article class="dish-card" data-reveal>
+            <div class="dish-image"><img src="images/grilled chichen.jpg" alt="Seasoned grilled chicken with a charred finish" loading="lazy" decoding="async"><span class="dish-number">01</span></div>
+            <div class="dish-details"><div><h3>Grilled Chicken</h3><p>Seasoned just right, then grilled over the flame.</p></div><span class="price">GH₵ 120</span></div>
+          </article>
+          <article class="dish-card dish-card-offset" data-reveal>
+            <div class="dish-image"><img src="images/grilled tilapia.jpg" alt="Whole tilapia grilled until tender and golden" loading="lazy" decoding="async"><span class="dish-number">02</span></div>
+            <div class="dish-details"><div><h3>Grilled Tilapia</h3><p>Fresh fish, flame-grilled to perfection.</p></div><span class="price">GH₵ 150</span></div>
+          </article>
+          <article class="dish-card" data-reveal>
+            <div class="dish-image"><img src="images/platter.jpg" alt="A chef's platter of grilled favourites to share" loading="lazy" decoding="async"><span class="dish-number">03</span></div>
+            <div class="dish-details"><div><h3>Chef's Platter</h3><p>A generous combination of house favourites.</p></div><span class="price">GH₵ 250</span></div>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <!-- FEATURED MENU -->
-    <section id="menu" class="menu">
-        <div class="container">
-
-            <div class="section-title">
-                <h2>Signature Dishes</h2>
-            </div>
-
-            <div class="menu-grid">
-
-                <div class="food-card">
-                    <img src="images/grilled chichen.jpg" alt="">
-                    <h3>Grilled Chicken</h3>
-                    <p>Perfectly seasoned and grilled.</p>
-                    <span>GH₵ 120</span>
-                </div>
-
-                <div class="food-card">
-                    <img src="images/grilled tilapia.jpg" alt="tilapia">
-                    <h3>Grilled Tilapia</h3>
-                    <p>Fresh fish grilled to perfection.</p>
-                    <span>GH₵ 150</span>
-                </div>
-
-                <div class="food-card">
-                    <img src="images/ribs.jpg" alt="ribs">
-                    <h3>BBQ Beef Ribs</h3>
-                    <p>Slow-cooked and flame finished.</p>
-                    <span>GH₵ 180</span>
-                </div>
-
-                <div class="food-card">
-                    <img src="images/turkey wings.jpg" alt="turkey">
-                    <h3>Turkey Wings</h3>
-                    <p>Signature smoky flavor.</p>
-                    <span>GH₵ 140</span>
-                </div>
-
-                <div class="food-card">
-                    <img src="images/jollof.jpg" alt="jollof">
-                    <h3>Jollof Specials</h3>
-                    <p>Authentic Ghanaian flavor.</p>
-                    <span>GH₵ 100</span>
-                </div>
-
-                <div class="food-card">
-                    <img src="images/platter.jpg" alt="platter">
-                    <h3>Chef's Platter</h3>
-                    <p>A premium combination of favorites.</p>
-                    <span>GH₵ 250</span>
-                </div>
-
-            </div>
-
+    <section class="menu-section section-pad" id="menu" aria-labelledby="menu-title">
+      <div class="container">
+        <div class="menu-intro" data-reveal>
+          <p class="eyebrow"><span class="eyebrow-rule"></span> Good things, made over fire</p>
+          <h2 class="section-heading" id="menu-title">The <em>menu.</em></h2>
+          <p>From the grill to Ghanaian classics, there is always room for one more at the table.</p>
         </div>
+        <div class="menu-filters" role="group" aria-label="Filter menu by category">
+          <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">All dishes</button>
+          <button class="filter-button" type="button" data-filter="grill" aria-pressed="false">From the grill</button>
+          <button class="filter-button" type="button" data-filter="ghanaian" aria-pressed="false">Ghanaian favourites</button>
+          <button class="filter-button" type="button" data-filter="sharing" aria-pressed="false">For sharing</button>
+        </div>
+        <div class="menu-list">
+          <article class="menu-item" data-category="grill"><span class="menu-item-number">01</span><div><h3>Grilled Chicken</h3><p>Perfectly seasoned and grilled.</p></div><span class="menu-price">GH₵ 120</span><span class="menu-category">From the grill</span></article>
+          <article class="menu-item" data-category="grill"><span class="menu-item-number">02</span><div><h3>Grilled Tilapia</h3><p>Fresh fish grilled to perfection.</p></div><span class="menu-price">GH₵ 150</span><span class="menu-category">From the grill</span></article>
+          <article class="menu-item" data-category="grill"><span class="menu-item-number">03</span><div><h3>BBQ Beef Ribs</h3><p>Slow-cooked and flame finished.</p></div><span class="menu-price">GH₵ 180</span><span class="menu-category">From the grill</span></article>
+          <article class="menu-item" data-category="grill"><span class="menu-item-number">04</span><div><h3>Turkey Wings</h3><p>Wings with our signature smoky flavour.</p></div><span class="menu-price">GH₵ 140</span><span class="menu-category">From the grill</span></article>
+          <article class="menu-item" data-category="ghanaian"><span class="menu-item-number">05</span><div><h3>Jollof Specials</h3><p>A taste of authentic Ghanaian flavour.</p></div><span class="menu-price">GH₵ 100</span><span class="menu-category">Ghanaian favourites</span></article>
+          <article class="menu-item" data-category="sharing"><span class="menu-item-number">06</span><div><h3>Chef's Platter</h3><p>A premium combination of favourites.</p></div><span class="menu-price">GH₵ 250</span><span class="menu-category">For sharing</span></article>
+        </div>
+        <p class="menu-note">Menu items and prices are shown as provided by the restaurant and may change.</p>
+      </div>
     </section>
 
-    <!-- ROOFTOP EXPERIENCE -->
-    <section id="experience" class="experience">
-
-        <div class="overlay"></div>
-
-        <div class="experience-content">
-            <h2>Dining Above The City</h2>
-
-            <p>
-                Experience Accra from a new perspective while enjoying
-                delicious meals under the open sky.
-            </p>
-
-            <a href="#reservation" class="btn-primary">
-                Book Your Experience
-            </a>
-        </div>
-
+    <section class="experience" id="experience" aria-labelledby="experience-title">
+      <img class="experience-image" src="images/gallery1.jpg" alt="" loading="lazy" decoding="async">
+      <div class="experience-shade"></div>
+      <div class="experience-content container" data-reveal>
+        <p class="eyebrow"><span class="eyebrow-rule"></span> A different point of view</p>
+        <h2 class="section-heading" id="experience-title">Come for the grill.<br><em>Stay for the view.</em></h2>
+        <p>Take your time over a good meal in our rooftop setting, above the pace of the city.</p>
+        <a class="button" href="#reservation">Make an evening of it <span aria-hidden="true">↗</span></a>
+      </div>
+      <span class="experience-side-note" aria-hidden="true">ROOFTOP DINING · ACCRA</span>
     </section>
 
-    <!-- TESTIMONIALS -->
-    <section class="testimonials">
-
-        <div class="container">
-
-            <div class="section-title">
-                <h2>What Our Guests Say</h2>
-            </div>
-
-            <div class="testimonial-card">
-
-                <div class="stars">★★★★★</div>
-
-                <p>
-                    "Rooftop restaurant serving some wild delicious food...
-                    True Chef's menu. The food will definitely make you revisit.
-                    Atmosphere is a plus."
-                </p>
-
-                <h4>— Philip Orkoh</h4>
-
-            </div>
-
-        </div>
-
+    <section class="guest-note section-pad" aria-labelledby="guest-title">
+      <div class="container guest-note-inner" data-reveal>
+        <p class="eyebrow"><span class="eyebrow-rule"></span> A word from a guest</p>
+        <h2 id="guest-title">“The food will definitely make you revisit. Atmosphere is a plus.”</h2>
+        <div class="guest-credit"><span class="guest-stars" aria-label="Five stars">★★★★★</span><span>Philip Orkoh <small>Guest review</small></span></div>
+      </div>
     </section>
 
-    <!-- WHY CHOOSE US -->
-    <section class="features">
-
-        <div class="container">
-
-            <div class="feature-card">
-                <h3>🔥 Freshly Grilled Meals</h3>
-                <p>Prepared daily using premium ingredients.</p>
-            </div>
-
-            <div class="feature-card">
-                <h3>👨‍🍳 Expert Chefs</h3>
-                <p>Creative and flavorful chef-inspired dishes.</p>
-            </div>
-
-            <div class="feature-card">
-                <h3>🌇 Rooftop Ambience</h3>
-                <p>Beautiful views and relaxing atmosphere.</p>
-            </div>
-
-            <div class="feature-card">
-                <h3>❤️ Exceptional Service</h3>
-                <p>Customer satisfaction is our priority.</p>
-            </div>
-
+    <section class="reasons section-pad" aria-labelledby="reasons-title">
+      <div class="container">
+        <div class="reasons-heading" data-reveal>
+          <p class="eyebrow"><span class="eyebrow-rule"></span> The RST difference</p>
+          <h2 class="section-heading" id="reasons-title">Made for the<br><em>whole occasion.</em></h2>
         </div>
-
+        <div class="reason-grid">
+          <article class="reason-card" data-reveal><span class="reason-index">01</span><h3>Fresh off the grill</h3><p>Meals prepared daily with premium ingredients and a signature smoky finish.</p></article>
+          <article class="reason-card" data-reveal><span class="reason-index">02</span><h3>Thoughtful cooking</h3><p>Chef-inspired creations and familiar flavours, brought together with care.</p></article>
+          <article class="reason-card" data-reveal><span class="reason-index">03</span><h3>Rooftop atmosphere</h3><p>Open-air dining and a relaxed setting for lunch, dinner or a special day.</p></article>
+          <article class="reason-card" data-reveal><span class="reason-index">04</span><h3>Warm hospitality</h3><p>A welcoming table, attentive service and room to enjoy the moment.</p></article>
+        </div>
+      </div>
     </section>
 
-    <!-- GALLERY -->
-    <section id="gallery" class="gallery">
-
-        <div class="section-title">
-            <h2>Gallery</h2>
+    <section class="gallery-section section-pad" id="gallery" aria-labelledby="gallery-title">
+      <div class="container">
+        <div class="section-heading-row" data-reveal>
+          <div><p class="eyebrow"><span class="eyebrow-rule"></span> A taste of RST</p><h2 class="section-heading" id="gallery-title">Good food.<br><em>Good company.</em></h2></div>
+          <p class="gallery-hint">Select a photo to take a closer look.</p>
         </div>
-        
         <div class="gallery-grid">
-
-            <img src="images/gallery1.jpg" alt="">
-            <img src="images/gallery2.jpg" alt="">
-            <img src="images/jollof.jpg" alt="">
-            <img src="images/platter.jpg" alt="">
-            <img src="images/ribs.jpg" alt="">
-            <img src="images/turkey wings.jpg" alt="">
-
+          <button class="gallery-item gallery-item-tall" type="button" data-full="images/gallery1.jpg" data-caption="An evening at RST Grilled House" aria-label="View photo: An evening at RST Grilled House"><img src="images/gallery1.jpg" alt="An evening at RST Grilled House" loading="lazy" decoding="async"><span>01 / The setting</span></button>
+          <button class="gallery-item" type="button" data-full="images/jollof.jpg" data-caption="Jollof specials" aria-label="View photo: Jollof specials"><img src="images/jollof.jpg" alt="A serving of RST's jollof special" loading="lazy" decoding="async"><span>02 / Ghanaian favourites</span></button>
+          <button class="gallery-item" type="button" data-full="images/ribs.jpg" data-caption="BBQ beef ribs" aria-label="View photo: BBQ beef ribs"><img src="images/ribs.jpg" alt="Slow-cooked BBQ beef ribs" loading="lazy" decoding="async"><span>03 / From the grill</span></button>
+          <button class="gallery-item" type="button" data-full="images/gallery2.jpg" data-caption="A table ready to welcome you" aria-label="View photo: A table ready to welcome you"><img src="images/gallery2.jpg" alt="A table ready to welcome guests" loading="lazy" decoding="async"><span>04 / At the table</span></button>
+          <button class="gallery-item gallery-item-wide" type="button" data-full="images/turkey wings.jpg" data-caption="Smoky turkey wings" aria-label="View photo: Smoky turkey wings"><img src="images/turkey wings.jpg" alt="Turkey wings with a smoky finish" loading="lazy" decoding="async"><span>05 / A house favourite</span></button>
+          <button class="gallery-item" type="button" data-full="images/platter.jpg" data-caption="The chef's platter" aria-label="View photo: The chef's platter"><img src="images/platter.jpg" alt="The chef's platter of grilled favourites" loading="lazy" decoding="async"><span>06 / Made for sharing</span></button>
         </div>
-
+      </div>
     </section>
 
-    <!-- RESERVATION -->
-    <section id="reservation" class="reservation">
+    <dialog class="lightbox" id="gallery-lightbox" aria-labelledby="lightbox-caption">
+      <button class="lightbox-close" type="button" aria-label="Close image">Close <span aria-hidden="true">×</span></button>
+      <img id="lightbox-image" src="images/gallery1.jpg" alt="">
+      <p id="lightbox-caption"></p>
+    </dialog>
 
-        <div class="container">
-
-            <div class="section-title">
-                <h2>Reserve Your Table</h2>
-            </div>
-
-            <form class="reservation-form">
-
-                <input type="text" placeholder="Full Name" required>
-
-                <input type="tel" placeholder="Phone Number" required>
-
-                <input type="email" placeholder="Email Address" required>
-
-                <label for="reservation-date">Date</label>
-                <input id="reservation-date" type="date" required>
-
-                <label for="reservation-time">Time</label>
-                <input id="reservation-time" type="time" required>
-
-                <input type="number" placeholder="Guests" required>
-
-                <textarea placeholder="Special Requests"></textarea>
-
-                <button type="submit">
-                    Reserve Your Table
-                </button>
-
-            </form>
-
+    <section class="reservation section-pad" id="reservation" aria-labelledby="reservation-title">
+      <div class="container reservation-layout">
+        <div class="reservation-copy" data-reveal>
+          <p class="eyebrow"><span class="eyebrow-rule"></span> Your table is waiting</p>
+          <h2 class="section-heading" id="reservation-title">Make room<br>for <em>something good.</em></h2>
+          <p>Share a few details and we’ll prepare a reservation request for you to send directly to us on WhatsApp. Your table is confirmed only when our team replies.</p>
+          <div class="reservation-aside"><span class="aside-mark" aria-hidden="true">RST</span><p>Planning something special?<br><a href="#contact">Get in touch with the team.</a></p></div>
         </div>
-
+        <form class="reservation-form" id="reservation-form">
+          <div class="form-intro"><span>01 <i></i> YOUR DETAILS</span><span>ALL FIELDS MARKED * ARE REQUIRED</span></div>
+          <div class="form-row">
+            <div class="form-field"><label for="guest-name">Your name <span>*</span></label><input id="guest-name" name="name" type="text" autocomplete="name" maxlength="80" required></div>
+            <div class="form-field"><label for="guest-phone">Phone number <span>*</span></label><input id="guest-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" pattern="[0-9\x2B\x28\x29\x20\x2D]{7,20}" title="Enter a valid phone number" required></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><label for="reservation-date">Preferred date <span>*</span></label><input id="reservation-date" name="date" type="date" required></div>
+            <div class="form-field"><label for="reservation-time">Preferred time <span>*</span></label><input id="reservation-time" name="time" type="time" required></div>
+          </div>
+          <div class="form-field"><label for="guest-count">Number of guests <span>*</span></label><select id="guest-count" name="guests" required><option value="" selected disabled>Select a party size</option><option value="1">1 guest</option><option value="2">2 guests</option><option value="3">3 guests</option><option value="4">4 guests</option><option value="5">5 guests</option><option value="6">6 guests</option><option value="7">7 guests</option><option value="8">8 guests</option><option value="9">9 guests</option><option value="10">10 guests</option><option value="11">11 guests</option><option value="12">12 guests</option></select></div>
+          <div class="form-field"><label for="guest-notes">Anything else we should know? <span class="optional">(optional)</span></label><textarea id="guest-notes" name="notes" rows="3" maxlength="500" placeholder="Occasion, seating preference, or a note for our team"></textarea></div>
+          <button class="button form-submit" type="submit">Prepare request <span aria-hidden="true">↗</span></button>
+          <p class="form-privacy">Your details are used only to prepare your WhatsApp message; this website does not save or submit reservations.</p>
+          <p class="form-feedback" id="reservation-feedback" role="status" aria-live="polite" tabindex="-1"></p>
+          <a class="button whatsapp-next" id="reservation-whatsapp" target="_blank" rel="noopener noreferrer" hidden>Continue to WhatsApp <span aria-hidden="true">↗</span></a>
+        </form>
+      </div>
     </section>
 
-    <!-- CONTACT -->
-    <section id="contact" class="contact">
-
-        <div class="container">
-
-            <div class="section-title">
-                <h2>Visit Us</h2>
-            </div>
-
-            <div class="contact-info">
-
-                <p><strong>Address:</strong> 48 Abeka Road, Accra</p>
-
-                <p><strong>Hours:</strong> Daily, 10:00 AM – 11:00 PM</p>
-
-                <p><strong>Services:</strong> Dine-In • Takeaway • Rooftop Dining</p>
-
-            </div>
-
-            <div class="map-container">
-
-                <iframe
-                    src="https://maps.google.com/maps?q=48%20Abeka%20Road%20Accra&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                    title="Google Map - RST Grilled House Restaurant"
-                    width="100%"
-                    height="400"
-                    allowfullscreen=""
-                    loading="lazy">
-                </iframe>
-
-            </div>
-
+    <section class="contact-section section-pad" id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="contact-heading" data-reveal><p class="eyebrow"><span class="eyebrow-rule"></span> Come find us</p><h2 class="section-heading" id="contact-title">See you <em>at the table.</em></h2></div>
+        <div class="contact-grid">
+          <div class="contact-details" data-reveal>
+            <div class="contact-detail"><span class="detail-label">VISIT</span><p>48 Abeka Road,<br>Accra, Ghana</p><a class="text-link" href="https://www.google.com/maps/search/?api=1&amp;query=48%20Abeka%20Road%2C%20Accra" target="_blank" rel="noopener noreferrer">Get directions <span aria-hidden="true">↗</span></a></div>
+            <div class="contact-detail"><span class="detail-label">CALL</span><p><a class="contact-phone" href="tel:+233546371072">+233 54 637 1072</a></p><p class="detail-note">For enquiries and table requests</p></div>
+            <div class="contact-detail"><span class="detail-label">HOURS</span><p>Daily<br>10:00 AM – 11:00 PM</p><p class="detail-note">Dine-in · Takeaway · Rooftop dining</p></div>
+            <div class="contact-detail" id="email-contact" hidden><span class="detail-label">EMAIL</span><p><a class="contact-email" href=""></a></p></div>
+            <a class="button button-outline whatsapp-contact" href="https://wa.me/233546371072" target="_blank" rel="noopener noreferrer">Message us on WhatsApp <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="map-frame" data-reveal>
+            <iframe src="https://maps.google.com/maps?q=48%20Abeka%20Road%2C%20Accra&amp;z=15&amp;output=embed" title="Map showing 48 Abeka Road, Accra" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+            <span class="map-label"><span class="map-pin" aria-hidden="true">●</span> RST GRILLED HOUSE · ACCRA</span>
+          </div>
         </div>
-
+      </div>
     </section>
+  </main>
 
-    <!-- FOOTER -->
-    <footer>
+  <footer class="site-footer">
+    <div class="container footer-main">
+      <a class="brand footer-brand" href="#home" aria-label="RST Grilled House home"><span class="brand-mark" aria-hidden="true">R</span><span class="brand-name">RST <span>Grilled House</span></span></a>
+      <p>Good food. Rooftop views.<br>Room for everyone.</p>
+      <a class="text-link light-link footer-top" href="#home">Back to top <span aria-hidden="true">↑</span></a>
+    </div>
+    <div class="container footer-bottom"><span>© <span id="current-year">2026</span> RST Grilled House</span><span>Made for good times in Accra.</span><nav class="footer-socials" id="footer-socials" aria-label="Social media" hidden></nav></div>
+  </footer>
 
-        <div class="footer-content">
-
-            <h2>RST Grilled House Restaurant</h2>
-
-            <p>
-                Premium Rooftop Dining Experience in Accra.
-            </p>
-
-            <div class="socials">
-                <a href="#">Facebook</a>
-                <a href="#">Instagram</a>
-                <a href="#">TikTok</a>
-            </div>
-
-            <p class="copyright">
-                © 2026 RST Grilled House Restaurant.
-                All Rights Reserved.
-            </p>
-
-        </div>
-
-    </footer>
-
-    <!-- FLOATING WHATSAPP -->
-    <a href="https://wa.me/233XXXXXXXXX"
-       class="whatsapp-btn"
-       target="_blank" rel="noopener">
-        WhatsApp
-    </a>
-
-    <script src="script.js"></script>
-
+  <a class="whatsapp-float" href="https://wa.me/233546371072" target="_blank" rel="noopener noreferrer" aria-label="Message RST Grilled House on WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L.2 24l6.5-1.7a11.8 11.8 0 0 0 5.4 1.4h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.2-6.1-3.5-8.4ZM12.2 21.7a9.9 9.9 0 0 1-5-1.4l-.4-.2-3.8 1 1-3.7-.3-.4a9.8 9.8 0 0 1-1.5-5.2c0-5.4 4.4-9.8 9.8-9.8 2.6 0 5.1 1 6.9 2.9a9.7 9.7 0 0 1 2.9 6.9c0 5.4-4.4 9.8-9.8 9.8Zm5.4-7.3c-.3-.2-1.7-.9-2-1s-.5-.2-.7.2c-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.7-1.7-2-.2-.3 0-.4.1-.6l.5-.6.3-.5c.1-.2 0-.4 0-.6-.1-.2-.7-1.7-.9-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.6 0 1.5 1.2 3 1.3 3.2.2.2 2.3 3.5 5.5 4.9.8.3 1.4.5 1.9.6.8.2 1.5.2 2 .1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.5Z"/></svg>
+    <span>WhatsApp</span>
+  </a>
 </body>
 </html>
